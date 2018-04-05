@@ -1,21 +1,54 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import queryString from 'query-string';
+
+import { setUser } from './actions';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
-  render() {
+const Home = ({ location, setDiscordUser, session }) => {
+    const token = queryString.parse(location.search).token;
+    if (token) setDiscordUser(token);
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+        <div className='App'>
+            { token ? <Redirect to={'/'} /> : null }
+            <header className="App-header">
+                <img src={logo} className="App-logo" alt="logo" />
+                <h1 className="App-title">Welcome to React</h1>
+            </header>
+            <p className="App-intro">
+                <a href="http://localhost:3001/api/discord/login"> { session ? 'Logged in! Click to refresh token.' : 'Login through discord' }</a>
+            </p>
+        </div>
     );
-  }
 }
+
+
+const App = () => (
+    <Router>
+        <Route exact path='/' component={WrappedHome} />
+    </Router>
+);
+
+const mapStateToProps = state => {
+    return {
+        session: state.user
+    }
+}
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setDiscordUser: user => {
+            dispatch(setUser(user));
+        }
+    }
+}
+
+const WrappedHome = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Home);
 
 export default App;
