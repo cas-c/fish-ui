@@ -32,8 +32,9 @@ const App = () => (
 );
 
 const mapStateToProps = state => {
+    const local = localStorage.getItem('fishSession');
     return {
-        session: state.user
+        session: local || state.user
     }
 }
 
@@ -41,6 +42,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         setDiscordUser: user => {
+            localStorage.setItem('fishSession', user);
             dispatch(setUser(user));
         }
     }
