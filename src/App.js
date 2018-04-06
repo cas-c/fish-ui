@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 
+import { apiHost } from './utils';
 import { setUser } from './actions';
 import logo from './logo.svg';
 import './App.css';
@@ -18,7 +19,7 @@ const Home = ({ location, setDiscordUser, session }) => {
                 <h1 className="App-title">Welcome to React</h1>
             </header>
             <p className="App-intro">
-                <a href="https://sleepy.cup.fish/api/discord/login"> { session ? 'Logged in! Click to refresh token.' : 'Login through discord' }</a>
+                <a href={`${apiHost}/api/discord/login`}> { session ? 'Logged in! Click to refresh token.' : 'Login through discord' }</a>
             </p>
         </div>
     );
