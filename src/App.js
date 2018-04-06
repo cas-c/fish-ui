@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 
 import { apiHost } from './utils';
-import { setUser } from './actions';
+import { setUser, setDiscordInfo } from './actions';
 import logo from './logo.svg';
 import './App.css';
+import DiscordDisplay from './components/DiscordDisplay';
 
-const Home = ({ location, setDiscordUser, session }) => {
+const Home = ({ location, setDiscordUser, session, getDiscordInfo }) => {
     const token = queryString.parse(location.search).token;
     if (token) setDiscordUser(token);
     return (
@@ -21,6 +22,10 @@ const Home = ({ location, setDiscordUser, session }) => {
             <p className="App-intro">
                 <a href={`${apiHost}/api/discord/login`}> { session ? 'Logged in! Click to refresh token.' : 'Login through discord' }</a>
             </p>
+            <p className="App-intro2">
+                <a onClick={() => getDiscordInfo(session)}> { 'Click to get discord data' }</a>
+            </p>
+            <DiscordDisplay />
         </div>
     );
 }
@@ -45,6 +50,15 @@ const mapDispatchToProps = dispatch => {
         setDiscordUser: user => {
             localStorage.setItem('fishSession', user);
             dispatch(setUser(user));
+        },
+        getDiscordInfo: async token => {
+            const response = await fetch(`${apiHost}/api/discord/user`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            dispatch(setDiscordInfo(await response.json()));
         }
     }
 }

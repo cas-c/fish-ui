@@ -7,6 +7,15 @@ const user = (state = '', action) => {
     return state;
 }
 
+const discordInfo = (state = {}, action) => {
+    console.log(action);
+    if (action.type === 'SET_DISCORD_INFO') {
+        return action.info;
+    }
+    return state;
+}
+
 export default combineReducers({
-    user
+    user,
+    discordInfo
 });
