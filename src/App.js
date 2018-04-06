@@ -18,7 +18,7 @@ const Home = ({ location, setDiscordUser, session }) => {
                 <h1 className="App-title">Welcome to React</h1>
             </header>
             <p className="App-intro">
-                <a href="/api/discord/login"> { session ? 'Logged in! Click to refresh token.' : 'Login through discord' }</a>
+                <a href="https://sleepy.cup.fish/api/discord/login"> { session ? 'Logged in! Click to refresh token.' : 'Login through discord' }</a>
             </p>
         </div>
     );
