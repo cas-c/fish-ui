@@ -17,7 +17,16 @@ const discordInfo = (state = {}, action) => {
     return state;
 }
 
+const userTimezone = (state = '', action) => {
+    if (action.type === 'SET_USER_TIMEZONE') {
+        console.log(action);
+        return action.timezone || '';
+    }
+    return state;
+}
+
 export default combineReducers({
     session,
-    discordInfo
+    discordInfo,
+    userTimezone
 });
