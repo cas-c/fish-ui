@@ -16,9 +16,11 @@ class DiscordSession extends React.Component {
     }
     render() {
         return (
-            <div>
-                <DiscordDisplay />
-                <a href={`${apiHost}/api/discord/login`}>Refresh Discord info</a>
+            <div className='discord-session-w'>
+                <div className='discord-session'>
+                    <DiscordDisplay />
+                    <a className='discord-session-refresh' href={`${apiHost}/api/discord/login`}>refresh discord info</a>
+                </div>
             </div>
         )
     }

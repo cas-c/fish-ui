@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './index.css';
 import DiscordLogin from './DiscordLogin';
 import DiscordSession from './DiscordSession';
 

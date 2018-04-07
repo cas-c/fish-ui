@@ -1,0 +1,13 @@
+.discord-session-w {
+    display: flex;
+    justify-content: center;
+}
+
+.discord-session {
+    margin: 0;
+    text-align: center;
+}
+
+.discord-session-refresh {
+    font-size: .75rem;
+}
