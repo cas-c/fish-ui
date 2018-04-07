@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
-const user = (state = '', action) => {
-    if (action.type === 'GET_USER_DATA') {
-        return action.user ? action.user : '';
+const session = (state = '', action) => {
+    if (action.type === 'SET_SESSION') {
+        return action.session || '';
     }
     return state;
 }
@@ -16,6 +16,6 @@ const discordInfo = (state = {}, action) => {
 }
 
 export default combineReducers({
-    user,
+    session,
     discordInfo
 });

@@ -15,17 +15,13 @@ const Home = ({ location, setDiscordUser, session, getDiscordInfo }) => {
     return (
         <div className='App'>
             { token ? <Redirect to={'/'} /> : null }
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <h1 className="App-title">Welcome to React</h1>
-            </header>
+            <div style={{ 'position': 'absolute', 'left': '1rem' }}><DiscordDisplay /></div>
             <p className="App-intro">
                 <a href={`${apiHost}/api/discord/login`}> { session ? 'Logged in! Click to refresh token.' : 'Login through discord' }</a>
             </p>
             <p className="App-intro2">
                 <a onClick={() => getDiscordInfo(session)}> { 'Click to get discord data' }</a>
             </p>
-            <DiscordDisplay />
         </div>
     );
 }

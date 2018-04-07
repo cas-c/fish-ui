@@ -1,13 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import './index.css';
 
 
 const DiscordDisplay = ({ userData }) => (
-    <div>
-        Some text here.
-        { userData && <img alt='' src={userData.avatar} /> }
+    <div className='discord-display-wrapper'>
+        <div className='discord-display' title={userData.username + '#' + userData.discriminator}>
+            <img alt='' src={userData.avatar} />
+            <br />
+            <span>{userData.username}</span>
+            <br />
+        </div>
     </div>
 );
+
+const DiscordDisplayWrapper = ({ userData }) => (userData.avatar && <DiscordDisplay userData={userData} />) || null;
 
 const mapStateToProps = state => {
     return {
@@ -18,4 +25,4 @@ const mapStateToProps = state => {
 export default connect(
     mapStateToProps,
     ({})
-)(DiscordDisplay);
+)(DiscordDisplayWrapper);

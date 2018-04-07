@@ -1,5 +1,5 @@
-export const setUser = user => {
-    return { type: 'GET_USER_DATA', user };
+export const setToken = user => {
+    return { type: 'SET_SESSION', user };
 };
 
 export const setDiscordInfo = info => {
