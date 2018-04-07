@@ -11,10 +11,11 @@ import Authorization from '../Authorization';
 const Home = ({ location, session, setSession }) => {
     const token = queryString.parse(location.search).token;
     if (token) {
-        setSession(token).then(() => { return <Redirect to={'/'} /> });
+        setSession(token);
     }
     return (
         <div>
+            { token && <Redirect to={'/'} /> }
             <Authorization session={session} />
         </div>
     )
