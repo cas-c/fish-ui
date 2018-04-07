@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 
 import { setToken } from '../../actions';
@@ -15,14 +14,20 @@ const Home = ({ location, session, setSession }) => {
     }
     return (
         <div>
-            { token && <Redirect to={'/'} /> }
             <Authorization session={session} />
         </div>
     )
 }
 
-const mapStateToProps = state => {
-    const ls = localStorage.getItem('fishSession');
+const mapStateToProps = (state, ownProps) => {
+    const token = queryString.parse(ownProps.location.search).token;
+    let ls;
+    if (token) {
+        ls = token;
+        window.history.pushState('', '', '/');
+    } else {
+        ls = localStorage.getItem('fishSession');
+    }
     return {
         session: state.session || ls
     };
@@ -30,9 +35,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setSession: async session => {
+        setSession: session => {
             localStorage.setItem('fishSession', session);
-            await dispatch(setToken((session)));
+            dispatch(setToken(session));
         }
     }
 }
