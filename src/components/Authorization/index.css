@@ -11,3 +11,8 @@
 .discord-session-refresh {
     font-size: .75rem;
 }
+
+.discord-login-link {
+    text-decoration: none;
+    font-size: .75rem;
+}
