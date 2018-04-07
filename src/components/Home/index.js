@@ -5,31 +5,27 @@ import queryString from 'query-string';
 import { setToken } from '../../actions';
 
 import Authorization from '../Authorization';
+import UserTimezone from '../UserTimezone';
 
-
-const Home = ({ location, session, setSession }) => {
-    const token = queryString.parse(location.search).token;
-    if (token) {
-        setSession(token);
+class Home extends React.Component {
+    componentDidMount() {
+        const token = queryString.parse(this.props.location.search).token;
+        if (token) this.props.setSession(token);
     }
-    return (
-        <div>
-            <Authorization session={session} />
-        </div>
-    )
+    render() {
+        return (
+            <div>
+                <Authorization session={this.props.session} />
+                <br />
+                <UserTimezone />
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const token = queryString.parse(ownProps.location.search).token;
-    let ls;
-    if (token) {
-        ls = token;
-        window.history.pushState('', '', '/');
-    } else {
-        ls = localStorage.getItem('fishSession');
-    }
     return {
-        session: state.session || ls
+        session: state.session
     };
 };
 

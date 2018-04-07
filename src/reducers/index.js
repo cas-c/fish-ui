@@ -1,14 +1,16 @@
 import { combineReducers } from 'redux';
 
-const session = (state = '', action) => {
+const defaultSession = localStorage.getItem('fishSession') || '';
+
+const session = (state = defaultSession, action) => {
     if (action.type === 'SET_SESSION') {
-        return action.session || '';
+        window.history.pushState('', '', '/');
+        return action.session || defaultSession || '';
     }
     return state;
 }
 
 const discordInfo = (state = {}, action) => {
-    console.log(action);
     if (action.type === 'SET_DISCORD_INFO') {
         return action.info;
     }
