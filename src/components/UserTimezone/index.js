@@ -5,7 +5,14 @@ import TimezonePicker from 'react-timezone';
 import { apiHost } from '../../utils';
 import { updateUserTimezone } from '../../actions';
 
+
 class UserTimezone extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            timezone: ''
+        }
+    }
     async componentDidMount() {
         const response = await fetch(`${apiHost}/api/user/timezone`, {
             method: 'GET',
@@ -13,22 +20,30 @@ class UserTimezone extends React.Component {
                 Authorization: `Bearer ${this.props.session}`
             }
         });
-        this.props.setUserTimezone((await response.json()).timezone);
+        const timezone = (await response.json()).timezone;
+        if (!timezone || timezone === 'undefined') return;
+        this.setState({ timezone });
+        this.props.setUserTimezone(timezone, this.props.session, true);
+    }
+    setTimezoneWrapper = timezone => {
+        this.setState({ timezone });
+        this.props.setUserTimezone(timezone, this.props.session);
     }
     render() {
         return (
             <div>
-                <TimezonePicker 
+                <h3>Your timezone</h3>
+                <TimezonePicker
                     style={{ width: '25rem' }}
-                    value={this.props.timezone}
-                    onChange={this.props.setUserTimezone}
+                    value={this.state.timezone}
+                    onChange={this.setTimezoneWrapper}
                     inputProps={{
-                        placeholder: 'Select Timezone...',
+                        placeholder: 'Select / search your timezone...',
                         name: 'timezone',
                     }}
                 />
             </div>
-        )
+        );
     }
 }
 
@@ -39,19 +54,21 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
     return {
-        setUserTimezone: timezone => {
+        setUserTimezone: (timezone, session, init) => {
             if (!timezone) return;
-            fetch(`${apiHost}/api/user/timezone`, {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${ownProps.session}`
-                },
-                body: {
-                    timezone: JSON.stringify(timezone)
-                }
-            });
+            if (!init) {
+                fetch(`${apiHost}/api/user/timezone`, {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${session}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ timezone }),
+                    mode: 'cors'
+                });
+            }
             dispatch(updateUserTimezone(timezone));
         }
     }

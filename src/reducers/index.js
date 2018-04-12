@@ -19,7 +19,6 @@ const discordInfo = (state = {}, action) => {
 
 const userTimezone = (state = '', action) => {
     if (action.type === 'SET_USER_TIMEZONE') {
-        console.log(action);
         return action.timezone || '';
     }
     return state;

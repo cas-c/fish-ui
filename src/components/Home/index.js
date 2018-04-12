@@ -17,7 +17,7 @@ class Home extends React.Component {
             <div>
                 <Authorization session={this.props.session} />
                 <br />
-                <UserTimezone />
+                { this.props.session && <UserTimezone /> }
             </div>
         );
     }
