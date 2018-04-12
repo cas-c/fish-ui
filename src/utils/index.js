@@ -8,6 +8,6 @@ if (hostname === 'sleepy.cup.fish') {
     host = 'http://localhost:3001';
 }
 
-
-
 export const apiHost = host;
+
+export const createAvatarUrl = (id, av) => `https://cdn.discordapp.com/avatars/${id}/${av}.png`;

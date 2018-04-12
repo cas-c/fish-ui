@@ -1,0 +1,14 @@
+.all-users {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.user-display {
+    width: 15rem;
+    margin-bottom: 1rem;
+}
+
+.time-display {
+    padding-top: .5rem;
+}

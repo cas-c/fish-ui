@@ -4,7 +4,8 @@
 }
 
 .discord-display {
-    max-width: 15rem;
+    width: 10rem;
+    height: 12rem;
     margin: auto;
     padding: 2rem;
     background-color: rgb(54, 57, 63);

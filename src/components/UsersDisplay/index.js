@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import './index.css';
 
 import { apiHost } from '../../utils';
 import { updateUsers } from '../../actions';
@@ -30,7 +31,9 @@ class UsersDisplay extends React.Component {
         return (
             <div>
                 <h3>All users</h3>
-                { this.state.users.map((u,i) => <UserDisplay user={u} key={`user${i}`}/>) }
+                <div className='all-users'>
+                    { this.state.users.map((u,i) => <UserDisplay user={u} key={`user${i}`}/>) }
+                </div>
             </div>
         );
     }
