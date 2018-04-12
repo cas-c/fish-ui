@@ -9,3 +9,7 @@ export const setDiscordInfo = info => {
 export const updateUserTimezone = timezone => {
     return { type: 'SET_USER_TIMEZONE', timezone };
 }
+
+export const updateUsers = users => {
+    return { type: 'SET_USERS', users };
+}

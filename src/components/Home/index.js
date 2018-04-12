@@ -6,6 +6,7 @@ import { setToken } from '../../actions';
 
 import Authorization from '../Authorization';
 import UserTimezone from '../UserTimezone';
+import UsersDisplay from '../UsersDisplay';
 
 class Home extends React.Component {
     componentDidMount() {
@@ -18,6 +19,8 @@ class Home extends React.Component {
                 <Authorization session={this.props.session} />
                 <br />
                 { this.props.session && <UserTimezone /> }
+                <br />
+                { this.props.session && <UsersDisplay /> }
             </div>
         );
     }
